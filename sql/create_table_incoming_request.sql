@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS incoming_requests(
     id serial primary key,
-    student int references students(id),
+    student_id int references students(id),
     reason varchar,
     study_kind varchar,
     name varchar,
