@@ -1,14 +1,12 @@
-CREATE OR REPLACE FUNCTION
+CREATE OR REPLACE PROCEDURE
 add_vote_students
 (
     student_id int,
     vote_id int,
     protocol_id int
-) RETURNS VOID AS
-$$
-BEGIN
+)
+LANGUAGE SQL
+BEGIN ATOMIC
     INSERT INTO vote_students(student_id, vote_id, protocol_id)
     VALUES (student_id, vote_id, protocol_id);
-END
-$$
-    LANGUAGE 'plpgsql';
+END;

@@ -3,19 +3,19 @@ from typing import Any
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 
-from src.config import (
-    POSTGRES_USER,
-    POSTGRES_PASSWORD,
-    POSTGRES_DB,
-    DB_HOST,
-    DB_PORT
-)
 
 class DatabaseEngine:
-    def __init__(self):
+    _instance = None
 
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(DatabaseEngine, cls).__new__(cls)
+
+        return cls._instance
+
+    def __init__(self, postgres_user, postgres_password, db_host, db_port, postgres_db):
         self.connection = connect(
-            dsn=f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{DB_HOST}:{DB_PORT}/{POSTGRES_DB}"
+            dsn=f"postgres://{postgres_user}:{postgres_password}@{db_host}:{db_port}/{postgres_db}"
         )
         self.cursor = self.connection.cursor(cursor_factory=RealDictCursor)
 

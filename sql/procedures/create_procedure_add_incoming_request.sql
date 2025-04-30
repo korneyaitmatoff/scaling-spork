@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION
+CREATE OR REPLACE PROCEDURE
 add_incoming_request(
     student_id int ,
     reason varchar,
@@ -9,12 +9,10 @@ add_incoming_request(
     course int,
     group_code varchar,
     contact varchar
-) RETURNS VOID AS
-$$
-BEGIN
+)
+LANGUAGE SQL
+BEGIN ATOMIC
     INSERT INTO incoming_requests(student_id, reason, study_kind, name, is_commerce, faculty,
     course, group_code, contact) VALUES (student_id, reason, study_kind, name, is_commerce,
     faculty, course, group_code, contact);
-END
-$$
-    LANGUAGE 'plpgsql';
+END;
