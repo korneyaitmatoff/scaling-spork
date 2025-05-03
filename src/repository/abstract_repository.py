@@ -4,7 +4,7 @@ from typing import Any
 
 class AbstractRepository(abc.ABC):
     @abc.abstractmethod
-    def add(self, batch: Any):
+    def add(self, batch: list[dict[str, Any]]):
         raise NotImplementedError
 
     @abc.abstractmethod

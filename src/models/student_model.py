@@ -1,7 +1,24 @@
 from datetime import datetime
-from typing import Any
+from typing import Any, TypedDict
 
 from pydantic import BaseModel
+
+class StudentRequest(BaseModel):
+    name: str
+    group_code: str
+    inn: str
+    is_resident: bool
+    passport_data: TypedDict("Dict", {"serial_number": str, "birthdate": str})
+
+class OverviewStudent(BaseModel):
+    name: str
+    group_code: str
+    inn: str
+    is_resident: bool
+    passport_data: TypedDict("Dict", {"serial_number": str, "birthdate": str})
+    created_at: datetime = datetime.now()
+    changed_at: datetime = datetime.now()
+
 
 
 class Student(BaseModel):
@@ -10,6 +27,6 @@ class Student(BaseModel):
     group_code: str
     inn: str
     is_resident: bool
-    passport_data: dict[str, Any]
+    passport_data: TypedDict("Dict", {"serial_number": str, "birthdate": str})
     created_at: datetime = datetime.now()
     changed_at: datetime = datetime.now()

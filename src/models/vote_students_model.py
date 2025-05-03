@@ -6,3 +6,11 @@ class VoteStudents(BaseModel):
     student_id: int
     vote_id: int
     protocol_id: int
+
+class VoteStudentsOverview(VoteStudents):
+    pass
+
+class VoteStudentsRequest(BaseModel):
+    student_id: int
+    vote_id: int
+    protocol_id: int

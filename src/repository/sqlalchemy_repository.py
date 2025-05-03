@@ -28,10 +28,11 @@ class SqlAlchemyRepository(AbstractRepository):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.session.close()
 
-    def add(self, batch):
-        ...
+    def add(self, batch: list[dict[str, Any]]):
+        self.session.execute(insert(self.entity), batch)
+        self.session.commit()
 
-    def get(self, filters = ()):
+    def get(self, filters=()):
         stmt = select(self.entity).filter(*filters)
 
         return self.session.execute(stmt).all()
