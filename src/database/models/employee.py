@@ -1,9 +1,7 @@
 from sqlalchemy import String, DateTime
 from sqlalchemy.orm import (
-    DeclarativeBase,
     Mapped,
     mapped_column,
-    relationship,
 )
 
 from src.database.models import Base

@@ -9,7 +9,13 @@ from src.services import BaseService
 
 class BaseRouter(AbstractRouter):
 
-    def __init__(self, service: BaseService, overview_model: BaseModel, incoming_model: BaseModel = None, prefix: str = "/"):
+    def __init__(
+            self,
+            service: BaseService,
+            overview_model: BaseModel,
+            incoming_model: BaseModel = None,
+            prefix: str = "/"
+    ):
         self.service = service
         self.router = APIRouter(prefix=prefix)
         self.overview_model = overview_model

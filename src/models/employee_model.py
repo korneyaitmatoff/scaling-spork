@@ -8,10 +8,12 @@ class Employee(BaseModel):
     login: str
     password: str
 
+
 class EmployeeRequest(BaseModel):
     batch: list[Employee]
 
-class OverviewEmployee(Employee):
+
+class OverviewEmployee(BaseModel):
     id: int | None = None
+    name: str
     created_at: datetime = datetime.now()
-    changed_at: datetime = datetime.now()
