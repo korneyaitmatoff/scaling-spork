@@ -14,11 +14,31 @@ class BaseService(AbstractService):
 
     def all(self, limit: int = 100, offset: int = 0):
         with self._repository as rep:
-            return [chunk._mapping for chunk in rep.list(limit=limit, offset=offset)]
+            return [
+                [
+                    {
+                        key: value
+                        for key, value in chunk_value.__dict__.items()
+                        if key != "_sa_instance_state"
+                    }
+                    for _, chunk_value in chunk._mapping.items()
+                ][0]
+                for chunk in rep.list(limit=limit, offset=offset)
+            ]
 
     def get_by_id(self, e_id: int):
         with self._repository as rep:
-            return [chunk._mapping for chunk in rep.get(filters=(rep.entity.id == e_id,))]
+            return [
+                [
+                    {
+                        key: value
+                        for key, value in chunk_value.__dict__.items()
+                        if key != "_sa_instance_state"
+                    }
+                    for _, chunk_value in chunk._mapping.items()
+                ][0]
+                for chunk in rep.get(filters=(rep.entity.id == e_id,))
+            ]
 
     def read_by(self, entity, filters):
         pass

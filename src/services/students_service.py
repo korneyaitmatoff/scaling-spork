@@ -12,5 +12,5 @@ class StudentsService(BaseService):
                     for key, value in item._mapping["Student"].__dict__.items()
                     if key != '_sa_instance_state'
                 }
-                for item in rep.get(filters=(self._repository.entity.name.like(name),))
+                for item in rep.get(filters=(self._repository.entity.name.match(name),))
             ]
