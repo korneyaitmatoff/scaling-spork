@@ -10,9 +10,6 @@ class StudentRequest(BaseModel):
     is_resident: bool
     passport_data: TypedDict("Dict", {"serial_number": str, "birthdate": str})
 
-class StudentBatch(BaseModel):
-    batch: list[StudentRequest]
-
 class OverviewStudent(BaseModel):
     name: str
     group_code: str

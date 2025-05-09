@@ -21,10 +21,11 @@ class BaseRouter(AbstractRouter):
         self.overview_model = overview_model
 
         self.router.add_api_route(endpoint=self.list, path="/", methods=["GET"])
+        self.router.add_api_route(endpoint=self.get, path="/{id}", methods=["GET"])
         self.router.add_api_route(endpoint=self.post(incoming_model), path="/", methods=["POST"])
 
-    def get(self, eid: str | int):
-        pass
+    def get(self, id: str | int):
+        return self.service.get_by_id(e_id=id)
 
     def list(self, limit: int = 100, offset: int = 0):
         return self.service.all(limit=limit, offset=offset)

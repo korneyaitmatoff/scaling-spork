@@ -16,6 +16,10 @@ class BaseService(AbstractService):
         with self._repository as rep:
             return [chunk._mapping for chunk in rep.list(limit=limit, offset=offset)]
 
+    def get_by_id(self, e_id: int):
+        with self._repository as rep:
+            return [chunk._mapping for chunk in rep.get(rep.entity.id == e_id, )]
+
     def read_by(self, entity, filters):
         pass
 
