@@ -1,7 +1,7 @@
 from typing import Any
 
 from sqlalchemy.orm import Session
-from sqlalchemy import select, insert
+from sqlalchemy import select, insert, text
 
 from src.repository.abstract_repository import AbstractRepository
 
@@ -41,3 +41,10 @@ class SqlAlchemyRepository(AbstractRepository):
         stmt = select(self.entity).limit(limit).offset(offset)
 
         return self.session.execute(stmt).all()
+
+    def execute(self, statement: str):
+        data = self.session.execute(text(statement)).fetchall()
+        self.session.commit()
+
+        return data
+

@@ -23,7 +23,7 @@ class DatabaseEngine:
         self.cursor.execute(query=statement)
         self.connection.commit()
 
-    def execute(self, statement: str) -> list[dict[str, Any]]:
-        self.cursor.execute(query=statement)
+    def execute(self, statement: str, **kwargs) -> list[dict[str, Any]]:
+        self.cursor.execute(query=statement, **kwargs)
 
         return self.cursor.fetchall()

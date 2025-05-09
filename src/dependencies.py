@@ -13,21 +13,23 @@ from src.database.models import (
     Employee,
     Student,
     VoteEmployees, Protocol,
+    IncomingRequest
 )
 from src.database.engine import DatabaseEngine
 from src.models import (
     OverviewEmployee
 )
 from src.models.employee_model import EmployeeRequest
-from src.models.incoming_request_model import IncomingRequestRequest, IncomingRequestOverview, IncomingRequest
+from src.models.incoming_request_model import IncomingRequestOverview, IncomingRequestRequest
 from src.models.protocol_model import ProtocolOverview, ProtocolRequest
 from src.models.student_model import OverviewStudent, StudentRequest
 from src.models.vote_model import Vote, VoteOverview, VoteRequest
 from src.repository.sqlalchemy_repository import SqlAlchemyRepository
 from src.routers import BaseRouter
 from src.routers.employee_router import EmployeeRouter
+from src.routers.incoming_request_router import IncomingRequestRouter
 from src.routers.students_router import StudentsRouter
-from src.services import BaseService
+from src.services import BaseService, IncomingRequestService
 from src.services.employee_service import EmployeeService
 from src.services.students_service import StudentsService
 
@@ -44,6 +46,7 @@ db_engine: DatabaseEngine = DatabaseEngine(
 )
 
 student_repository = SqlAlchemyRepository(engine=engine, entity=Student)
+incoming_request_repository = SqlAlchemyRepository(engine=engine, entity=IncomingRequest)
 
 # Services
 employee_service = EmployeeService(
@@ -54,6 +57,9 @@ employee_service = EmployeeService(
 )
 student_service = StudentsService(
     repository=student_repository
+)
+incoming_request_service = IncomingRequestService(
+    repository=incoming_request_repository
 )
 
 # Routers
@@ -69,4 +75,10 @@ student_router: BaseRouter = StudentsRouter(
     overview_model=OverviewStudent,
     prefix="/student",
     incoming_model=StudentRequest
+)
+incoming_request_router: BaseRouter = IncomingRequestRouter(
+    service=incoming_request_service,
+    overview_model=IncomingRequestOverview,
+    prefix="/incoming_request",
+    incoming_model=IncomingRequestRequest
 )

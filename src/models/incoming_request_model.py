@@ -35,12 +35,11 @@ class IncomingRequestOverview(BaseModel):
 
 
 class IncomingRequestRequest(BaseModel):
-    student: int
     reason: str
     study_kind: str
-    name: str
+    student_name: str
     is_commerce: bool
     faculty: str
     course: int
-    group_code: str
-    contract: str
+    student_group_code: str
+    contact: str

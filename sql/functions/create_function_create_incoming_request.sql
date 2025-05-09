@@ -14,7 +14,7 @@ $$
 DECLARE is_student_exists BOOLEAN;
 DECLARE student_id INTEGER;
 BEGIN
-    SELECT COUNT(*) = 1 INTO is_student_exists
+    SELECT COUNT(*) != 0 INTO is_student_exists
 	FROM students s WHERE s.name = student_name AND s.group_code = student_group_code;
 
 	IF is_student_exists is False THEN
@@ -36,6 +36,7 @@ BEGIN
 	    );
 
 	    RETURN QUERY SELECT json_build_object(
+	        'id', student_id,
 	        'name', student_name,
 	        'reason', reason,
 	        'study_kind', study_kind,
