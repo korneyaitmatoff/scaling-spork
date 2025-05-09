@@ -8,9 +8,9 @@ class BaseService(AbstractService):
     def __init__(self, repository: SqlAlchemyRepository):
         self._repository = repository
 
-    def create(self, batch: list[BaseModel]):
+    def create(self, batch: BaseModel):
         with self._repository as rep:
-            return rep.add(batch=[chunk.model_dump(mode="python") for chunk in batch])
+            return rep.add(batch=[batch.model_dump(mode="python")])
 
     def all(self, limit: int = 100, offset: int = 0):
         with self._repository as rep:

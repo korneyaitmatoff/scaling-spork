@@ -32,7 +32,7 @@ class BaseRouter(AbstractRouter):
 
     def post(self, batch):
         def wrapper(batch_type: batch):
-            self.service.create(batch=batch_type.batch)
+            self.service.create(batch=batch_type)
 
         return wrapper
 
